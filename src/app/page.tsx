@@ -1,103 +1,38 @@
-import Image from "next/image";
+import Select from "./components/select";
+import Toggle from "./components/toggle";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="h-screen max-h-screen bg-neutral-800 grid place-items-center">
+      <div className="flex gap-16 items-center">
+        <div className="bg-white rounded-lg p-4 w-[32rem] h-64 shadow-lg grid place-items-center relative">
+          <p className="absolute left-2 -top-6 italic text-neutral-600">Preview</p>
+          <button className="px-8 py-4 bg-teal-400 rounded-full font-bold cursor-pointer">Book Online</button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div className="bg-zinc-700 rounded-lg p-4 w-80 h-[32rem] shadow-lg relative overflow-y-auto flex flex-col">
+          <Toggle />
+          <Select label="Test" placeholderText="None" options={["1", "2", "3", "4"]} showNoneOption />
+          <div className="bg-zinc-700 h-16 bottom-0 left-0 right-0 absolute shadow-[0_0_20px_0_oklch(30%_0.006_295.885)] flex justify-between px-4 items-center">
+            {/* <p className="w-full bg-black">Test text</p> */}
+            <button className="px-4 py-1 h-fit bg-teal-400 text-white rounded-full">Copy HTML</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    // <div className="bg-neutral-300 h-screen">
+    //   <svg xmlns="http://www.w3.org/2000/svg" width="138" height="51" viewBox="0 0 138 51" fill="none">
+    //     <g xmlns="http://www.w3.org/2000/svg" clipPath="url(#clip0_74_769)">
+    //       <circle cx="29.5" cy="25.5" r="12" fill="white"/>
+    //       <path d="M30.739 19.5C30.8842 19.4977 32.9554 19.4845 34.3777 20.875C35.2351 21.712 35.6687 22.8669 35.6687 24.3096V31.5H35.074C34.9879 31.4998 34.9197 31.4295 34.9197 31.3457V24.3096C34.9197 23.078 34.5641 22.1046 33.8611 21.415C32.6452 20.2264 30.7731 20.251 30.7527 20.251H25.6306C25.5446 20.2512 25.4764 20.3215 25.4763 20.4053V31.3457C25.4763 31.4317 25.4067 31.4997 25.323 31.5H23.2898V22.2813H23.8845C23.9706 22.2813 24.0388 22.3517 24.0388 22.4355V30.6084C24.0388 30.6946 24.1092 30.7627 24.1931 30.7627H24.5691C24.6553 30.7627 24.7234 30.6923 24.7234 30.6084V19.6572C24.7257 19.571 24.7944 19.5 24.8806 19.5H30.739ZM30.6599 20.8906C30.6962 20.8906 31.5489 20.8957 32.4109 21.2813C33.2411 21.651 34.2302 22.4451 34.2302 24.1191V31.3457C34.2302 31.4319 34.1599 31.5 34.0759 31.5H32.0457V24.1689C32.0479 24.1395 32.0596 23.6988 31.7625 23.3857C31.5356 23.1454 31.1723 23.0254 30.6824 23.0254H27.5974V22.4307C27.5976 22.3447 27.668 22.2765 27.7517 22.2764H30.6853C31.3928 22.2764 31.9439 22.4814 32.3181 22.8828C32.8079 23.4068 32.8031 24.0849 32.7986 24.2051V30.6133C32.7987 30.6993 32.8692 30.7674 32.9529 30.7676H33.3298C33.416 30.7676 33.484 30.6971 33.4841 30.6133V24.1143C33.4841 23.1004 33.0281 22.3793 32.1277 21.9688C31.4109 21.6421 30.6687 21.6367 30.6619 21.6367H27.0691C26.983 21.6367 26.915 21.7072 26.9148 21.791V31.5H26.3201C26.2341 31.4998 26.1658 31.4295 26.1658 31.3457V21.0449C26.1658 20.9589 26.2364 20.8909 26.3201 20.8906H30.6599Z" fill="black"/>
+    //     </g>
+    //   </svg>
+    //   <svg xmlns="http://www.w3.org/2000/svg" width="138" height="51" viewBox="0 0 138 51" fill="none">
+    //     <g xmlns="http://www.w3.org/2000/svg" clipPath="url(#clip0_74_769)">
+    //       <circle cx="29.5" cy="25.5" r="12" fill="black"/>
+    //       <path d="M30.739 19.5C30.8842 19.4977 32.9554 19.4845 34.3777 20.875C35.2351 21.712 35.6687 22.8669 35.6687 24.3096V31.5H35.074C34.9879 31.4998 34.9197 31.4295 34.9197 31.3457V24.3096C34.9197 23.078 34.5641 22.1046 33.8611 21.415C32.6452 20.2264 30.7731 20.251 30.7527 20.251H25.6306C25.5446 20.2512 25.4764 20.3215 25.4763 20.4053V31.3457C25.4763 31.4317 25.4067 31.4997 25.323 31.5H23.2898V22.2813H23.8845C23.9706 22.2813 24.0388 22.3517 24.0388 22.4355V30.6084C24.0388 30.6946 24.1092 30.7627 24.1931 30.7627H24.5691C24.6553 30.7627 24.7234 30.6923 24.7234 30.6084V19.6572C24.7257 19.571 24.7944 19.5 24.8806 19.5H30.739ZM30.6599 20.8906C30.6962 20.8906 31.5489 20.8957 32.4109 21.2813C33.2411 21.651 34.2302 22.4451 34.2302 24.1191V31.3457C34.2302 31.4319 34.1599 31.5 34.0759 31.5H32.0457V24.1689C32.0479 24.1395 32.0596 23.6988 31.7625 23.3857C31.5356 23.1454 31.1723 23.0254 30.6824 23.0254H27.5974V22.4307C27.5976 22.3447 27.668 22.2765 27.7517 22.2764H30.6853C31.3928 22.2764 31.9439 22.4814 32.3181 22.8828C32.8079 23.4068 32.8031 24.0849 32.7986 24.2051V30.6133C32.7987 30.6993 32.8692 30.7674 32.9529 30.7676H33.3298C33.416 30.7676 33.484 30.6971 33.4841 30.6133V24.1143C33.4841 23.1004 33.0281 22.3793 32.1277 21.9688C31.4109 21.6421 30.6687 21.6367 30.6619 21.6367H27.0691C26.983 21.6367 26.915 21.7072 26.9148 21.791V31.5H26.3201C26.2341 31.4998 26.1658 31.4295 26.1658 31.3457V21.0449C26.1658 20.9589 26.2364 20.8909 26.3201 20.8906H30.6599Z" fill="white"/>
+    //     </g>
+    //   </svg>
+    // </div>
   );
 }
