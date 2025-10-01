@@ -1,4 +1,5 @@
 import Select from "./components/select";
+import Textfield from "./components/textfield";
 import Toggle from "./components/toggle";
 
 export default function Home() {
@@ -10,8 +11,9 @@ export default function Home() {
           <button className="px-8 py-4 bg-teal-400 rounded-full font-bold cursor-pointer">Book Online</button>
         </div>
         <div className="bg-zinc-700 rounded-lg p-4 w-80 h-[32rem] shadow-lg relative overflow-y-auto flex flex-col">
-          <Toggle />
-          <Select label="Test" placeholderText="None" options={["1", "2", "3", "4"]} showNoneOption />
+          <Toggle label="Toggle Test" />
+          <Textfield label="Textfield Test" />
+          <Select label="Select Test" placeholderText="None" options={["1", "2", "3", "4"]} showNoneOption />
           <div className="bg-zinc-700 h-16 bottom-0 left-0 right-0 absolute shadow-[0_0_20px_0_oklch(30%_0.006_295.885)] flex justify-between px-4 items-center">
             {/* <p className="w-full bg-black">Test text</p> */}
             <button className="px-4 py-1 h-fit bg-teal-400 text-white rounded-full">Copy HTML</button>
