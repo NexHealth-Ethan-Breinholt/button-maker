@@ -10,3 +10,13 @@ body {
     linear-gradient(to bottom, #111111 4px, transparent 4px);
   background-size: 40px 40px;
 }
+
+.color-picker-gradients {
+  background-image:
+    linear-gradient(to top, black, transparent),
+    linear-gradient(to right, white, transparent);
+}
+
+.rainbow-gradient {
+  background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, red);
+}
