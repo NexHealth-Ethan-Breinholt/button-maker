@@ -18,5 +18,5 @@ body {
 }
 
 .rainbow-gradient {
-  background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, red);
+  background-image: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
 }

@@ -9,9 +9,14 @@ interface SelectProps {
     placeholderText: string,
     options: string[],
     showNoneOption?: boolean,
+    dataKey: string,
+    onChange: (key: string, value: string) => void,
+    buttonData: any,
+    conditionalKey?: string,
+    conditionalKeyValue?: any,
 }
 
-export default function Select({ label, placeholderText = "Select an Option", options = ["Option 1", "Option 2"], showNoneOption = false }: SelectProps) {
+export default function Select({ label, placeholderText = "Select an Option", options = ["Option 1", "Option 2"], showNoneOption = false, dataKey: key, onChange, buttonData, conditionalKey, conditionalKeyValue }: SelectProps) {
     const [open, setOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState("");
     const selectRef = useRef<HTMLButtonElement>(null);
@@ -19,6 +24,7 @@ export default function Select({ label, placeholderText = "Select an Option", op
     const handleSelect = (option: string) => {
         setSelectedOption(option);
         setOpen(false);
+        onChange(key, option);
     }
 
     useEffect(() => {
@@ -41,7 +47,7 @@ export default function Select({ label, placeholderText = "Select an Option", op
             {selectedOption && <p className="py-1">{selectedOption}</p>}
             {!open && <FaChevronDown size={12} className="absolute right-2 top-[10px]" />}
             {open && <FaChevronUp size={12} className="absolute right-2 top-[10px]" />}
-            {open && <ul className="shadow-lg p-4 rounded-lg overflow-hidden absolute flex flex-col top-full mt-2 left-0 right-0 z-50 bg-zinc-600">
+            {open && <ul className="shadow-lg py-4 rounded-lg overflow-hidden absolute flex flex-col top-full mt-2 left-0 right-0 z-50 bg-zinc-600">
                 {showNoneOption && <SelectOption label="None" returnEmptyString valueSetFunction={() => handleSelect("")} placeholderStyle />}
                 {
                     options.map((option, index) => (

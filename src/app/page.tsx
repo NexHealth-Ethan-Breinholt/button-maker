@@ -1,9 +1,22 @@
+"use client";
+
+import { useState } from "react";
 import ColorPicker from "./components/color-picker";
 import Select from "./components/select";
 import Textfield from "./components/textfield";
 import Toggle from "./components/toggle";
+import { TextInput, ToggleInput } from "./components/inputs";
 
 export default function Home() {
+  const [buttonData, setButtonData] = useState({});
+
+  const handleInput = (key: string, value: any) => {
+    setButtonData({
+      ...buttonData,
+      [key]: value
+    })
+  }
+  
   return (
     <main className="h-screen max-h-screen bg-neutral-800 grid place-items-center">
       <div className="flex gap-16 items-center">
@@ -11,13 +24,18 @@ export default function Home() {
           <p className="absolute left-2 -top-6 italic text-neutral-600">Preview</p>
           <button className="px-8 py-4 bg-teal-400 rounded-full font-bold cursor-pointer">Book Online</button>
         </div>
-        <div className="bg-zinc-700 rounded-lg p-4 w-80 h-[32rem] shadow-lg relative overflow-y-auto flex flex-col">
-          <Toggle label="Toggle Test" />
-          <Textfield label="Textfield Test" />
-          <Select label="Select Test" placeholderText="None" options={["1", "2", "3", "4"]} showNoneOption />
-          <ColorPicker label="Color Picker Test" />
+        <div className="bg-zinc-700 rounded-lg p-4 w-80 h-[32rem] shadow-lg relative overflow-y-auto flex flex-col gap-2">
+          <TextInput label="New Text Input Test" buttonData={buttonData} dataKey="new-text-test" onChange={handleInput} />
+          <ToggleInput label="New Toggle Input Test" buttonData={buttonData} dataKey="new-toggle-test" onChange={handleInput} defaultValue={true} />
+
+          <Textfield label="Label" dataKey="label" onChange={handleInput} buttonData={buttonData} />
+          {/* <Toggle label="Show BG" defaultValue={true} dataKey="bg" onChange={handleInput} buttonData={buttonData}  /> */}
+          <ColorPicker label="BG Color" value="#00d5be" dataKey="bg-color" onChange={handleInput} buttonData={buttonData} conditionalKey="bg" conditionalKeyValue={true} />
+          <ColorPicker label="Text Color" dataKey="text-color" onChange={handleInput} buttonData={buttonData} />
+          {/* <Toggle label="Use Border" dataKey="border" onChange={handleInput} buttonData={buttonData}  /> */}
+          <Textfield label="Thickness" dataKey="border-thickness" onChange={handleInput} buttonData={buttonData} conditionalKey="border" conditionalKeyValue={true} />
+          <ColorPicker label="Border Color" value="#00d5be" dataKey="border-color" onChange={handleInput} buttonData={buttonData} conditionalKey="border" conditionalKeyValue={true} />
           <div className="bg-zinc-700 h-16 bottom-0 left-0 right-0 absolute shadow-[0_0_20px_0_oklch(30%_0.006_295.885)] flex justify-between px-4 items-center">
-            {/* <p className="w-full bg-black">Test text</p> */}
             <button className="px-4 py-1 h-fit bg-teal-400 text-white rounded-full">Copy HTML</button>
           </div>
         </div>
