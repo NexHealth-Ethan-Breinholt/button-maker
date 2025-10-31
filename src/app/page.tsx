@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import ColorPicker from "./components/color-picker";
-import Select from "./components/select";
 import Textfield from "./components/textfield";
-import Toggle from "./components/toggle";
-import { TextInput, ToggleInput } from "./components/inputs";
+import { ColorInput, TextInput, ToggleInput } from "./components/inputs";
+import ButtonVisual from "./components/button-visual";
 
 export default function Home() {
   const [buttonData, setButtonData] = useState({});
@@ -22,11 +21,13 @@ export default function Home() {
       <div className="flex gap-16 items-center">
         <div className="bg-white rounded-lg p-4 w-[32rem] h-64 shadow-lg grid place-items-center relative">
           <p className="absolute left-2 -top-6 italic text-neutral-600">Preview</p>
-          <button className="px-8 py-4 bg-teal-400 rounded-full font-bold cursor-pointer">Book Online</button>
+          {/* <button className="px-8 py-4 bg-teal-400 rounded-full font-bold cursor-pointer">Book Online</button> */}
+          <ButtonVisual />
         </div>
         <div className="bg-zinc-700 rounded-lg p-4 w-80 h-[32rem] shadow-lg relative overflow-y-auto flex flex-col gap-2">
-          <TextInput label="New Text Input Test" buttonData={buttonData} dataKey="new-text-test" onChange={handleInput} />
-          <ToggleInput label="New Toggle Input Test" buttonData={buttonData} dataKey="new-toggle-test" onChange={handleInput} defaultValue={true} />
+          <TextInput label="New Text Input Test" dataKey="new-text-test" />
+          <ToggleInput label="Use Background Color" dataKey="use-bg-color" defaultValue={true} />
+          <ColorInput label="Background Color" dataKey="bg-color" defaultValue="#00d5be" conditionalKey="use-bg-color" conditionalKeyValue={true} />
 
           <Textfield label="Label" dataKey="label" onChange={handleInput} buttonData={buttonData} />
           {/* <Toggle label="Show BG" defaultValue={true} dataKey="bg" onChange={handleInput} buttonData={buttonData}  /> */}

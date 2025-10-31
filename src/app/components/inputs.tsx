@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import Toggle from "./toggle";
+import { useButtonContext } from "./button-context";
 
 interface BaseProps {
     label: string;
-    buttonData: any;
     conditionalKey?: string;
     conditionalKeyValue?: any;
     hiddenByDefault?: boolean;
@@ -16,22 +16,26 @@ interface InputWrapperProps extends BaseProps {
 interface InputFieldProps extends BaseProps {
     defaultValue?: string | boolean,
     dataKey: string,
-    onChange: (key: string, value: string | boolean) => void,
 }
 
 const InputWrapper = ({
     children,
     label,
-    buttonData,
     conditionalKey,
     conditionalKeyValue,
-    hiddenByDefault,
+    hiddenByDefault = false,
 }: InputWrapperProps) => {
+    const { buttonData } = useButtonContext();
     const [hidden, setHidden] = useState(hiddenByDefault);
 
+    const isHidden = conditionalKey ? buttonData[conditionalKey] !== conditionalKeyValue : false;
+
     useEffect(() => {
-        setHidden(conditionalKey ? buttonData[conditionalKey] !== conditionalKeyValue : false);
-    }, [buttonData, conditionalKey, conditionalKeyValue]);
+        setHidden(isHidden);
+        if (conditionalKey) {
+            console.log(conditionalKey, conditionalKeyValue, buttonData[conditionalKey], isHidden)
+        }
+    }, [buttonData, conditionalKey, conditionalKeyValue, isHidden]);
 
     if (hidden) {
         return <></>
@@ -46,25 +50,69 @@ const InputWrapper = ({
 }
 
 export const TextInput = (props: InputFieldProps) => {
-    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        props.onChange(props.dataKey, e.target.value);
+    const { handleInput } = useButtonContext();
+    const [value, setValue] = useState("");
+
+    useEffect(() => {
+        if (props.defaultValue !== undefined) {
+            handleOnChange(props.defaultValue as string);
+        }
+    }, []);
+
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement> | string) => {
+        handleInput(props.dataKey, typeof e === "string" ? e : e.target.value);
+        setValue(typeof e === "string" ? e : e.target.value);
     }
 
     return (
-        <InputWrapper label={props.label} buttonData={props.buttonData} conditionalKey={props.conditionalKey} conditionalKeyValue={props.conditionalKeyValue} hiddenByDefault={props.hiddenByDefault}>
-            <input type="text" onChange={handleOnChange} className="text-white w-full bg-neutral-800 rounded-lg px-2 py-1 text-left focus-within:outline-4 focus-within:outline-teal-400/50" />
+        <InputWrapper label={props.label} conditionalKey={props.conditionalKey} conditionalKeyValue={props.conditionalKeyValue} hiddenByDefault={props.hiddenByDefault}>
+            <input type="text" onChange={handleOnChange} value={value} className="text-white w-full bg-neutral-800 rounded-lg px-2 py-1 text-left focus-within:outline-4 focus-within:outline-teal-400/50" />
         </InputWrapper>
     )
 }
 
 export const ToggleInput = (props: InputFieldProps) => {
+    const { handleInput } = useButtonContext();
+    const [value, setValue] = useState(false);
+    
+    useEffect(() => {
+        if (props.defaultValue !== undefined) {
+            handleOnChange(value);
+        }
+    }, []);
+
     const handleOnChange = (value: boolean) => {
-        props.onChange(props.dataKey, value);
+        handleInput(props.dataKey, value);
+        setValue(value);
+    }
+
+    // TODO: The value is not being applied as the default value here.
+
+    return (
+        <InputWrapper label={props.label} conditionalKey={props.conditionalKey} conditionalKeyValue={props.conditionalKeyValue} hiddenByDefault={props.hiddenByDefault}>
+            <Toggle defaultValue={props.defaultValue as boolean} onChange={handleOnChange} />
+        </InputWrapper>
+    )
+}
+
+export const ColorInput = (props: InputFieldProps) => {
+    const { handleInput } = useButtonContext();
+    const [value, setValue] = useState("");
+
+    useEffect(() => {
+        if (props.defaultValue !== undefined) {
+            handleOnChange(props.defaultValue as string);
+        }
+    }, []);
+
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement> | string) => {
+        handleInput(props.dataKey, typeof e === "string" ? e : e.target.value);
+        setValue(typeof e === "string" ? e : e.target.value);
     }
 
     return (
-        <InputWrapper label={props.label} buttonData={props.buttonData} conditionalKey={props.conditionalKey} conditionalKeyValue={props.conditionalKeyValue} hiddenByDefault={props.hiddenByDefault}>
-            <Toggle defaultValue={props.defaultValue as boolean} onChange={handleOnChange} />
+        <InputWrapper label={props.label} conditionalKey={props.conditionalKey} conditionalKeyValue={props.conditionalKeyValue} hiddenByDefault={props.hiddenByDefault}>
+            <input type="color" onChange={handleOnChange} value={value} className="w-full bg-neutral-800 rounded-lg px-2 py-1 text-left focus-within:outline-4 focus-within:outline-teal-400/50" />
         </InputWrapper>
     )
 }
