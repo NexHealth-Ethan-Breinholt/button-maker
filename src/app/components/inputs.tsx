@@ -14,8 +14,9 @@ interface InputWrapperProps extends BaseProps {
 }
 
 interface InputFieldProps extends BaseProps {
-    defaultValue?: string | boolean,
     dataKey: string,
+    valueSuffix?: string,
+    pattern?: RegExp,
 }
 
 const InputWrapper = ({
@@ -31,14 +32,19 @@ const InputWrapper = ({
     const isHidden = conditionalKey ? buttonData[conditionalKey] !== conditionalKeyValue : false;
 
     useEffect(() => {
-        setHidden(isHidden);
         if (conditionalKey) {
+            if (buttonData[conditionalKey] === undefined) {
+                setHidden(hiddenByDefault);
+            }
+            else {
+                setHidden(isHidden);
+            }
             console.log(conditionalKey, conditionalKeyValue, buttonData[conditionalKey], isHidden)
         }
     }, [buttonData, conditionalKey, conditionalKeyValue, isHidden]);
 
     if (hidden) {
-        return <></>
+        return null;
     }
 
     return (
@@ -50,18 +56,27 @@ const InputWrapper = ({
 }
 
 export const TextInput = (props: InputFieldProps) => {
-    const { handleInput } = useButtonContext();
-    const [value, setValue] = useState("");
-
-    useEffect(() => {
-        if (props.defaultValue !== undefined) {
-            handleOnChange(props.defaultValue as string);
-        }
-    }, []);
+    const { buttonData, handleInput } = useButtonContext();
+    let startValue: string = buttonData[props.dataKey] ?? "";
+    if (startValue && props.valueSuffix && startValue.endsWith(props.valueSuffix)) {
+        startValue = startValue.slice(0, startValue.length - props.valueSuffix?.length);
+    }
+    const [value, setValue] = useState(startValue);
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement> | string) => {
-        handleInput(props.dataKey, typeof e === "string" ? e : e.target.value);
-        setValue(typeof e === "string" ? e : e.target.value);
+        let newValue = typeof e === "string" ? e : e.target.value;
+
+        if (props.pattern && !props.pattern.test(newValue)) {
+            return;
+        }
+
+        setValue(newValue);
+
+        if (props.valueSuffix && !newValue.endsWith(props.valueSuffix)) {
+            newValue += props.valueSuffix;
+        }
+
+        handleInput(props.dataKey, newValue);
     }
 
     return (
@@ -72,14 +87,9 @@ export const TextInput = (props: InputFieldProps) => {
 }
 
 export const ToggleInput = (props: InputFieldProps) => {
-    const { handleInput } = useButtonContext();
+    const { buttonData, handleInput } = useButtonContext();
+    const startValue: boolean = buttonData[props.dataKey] ?? false;
     const [value, setValue] = useState(false);
-    
-    useEffect(() => {
-        if (props.defaultValue !== undefined) {
-            handleOnChange(value);
-        }
-    }, []);
 
     const handleOnChange = (value: boolean) => {
         handleInput(props.dataKey, value);
@@ -90,24 +100,23 @@ export const ToggleInput = (props: InputFieldProps) => {
 
     return (
         <InputWrapper label={props.label} conditionalKey={props.conditionalKey} conditionalKeyValue={props.conditionalKeyValue} hiddenByDefault={props.hiddenByDefault}>
-            <Toggle defaultValue={props.defaultValue as boolean} onChange={handleOnChange} />
+            <Toggle defaultValue={startValue} onChange={handleOnChange} />
         </InputWrapper>
     )
 }
 
 export const ColorInput = (props: InputFieldProps) => {
-    const { handleInput } = useButtonContext();
-    const [value, setValue] = useState("");
-
-    useEffect(() => {
-        if (props.defaultValue !== undefined) {
-            handleOnChange(props.defaultValue as string);
-        }
-    }, []);
+    const { buttonData, handleInput } = useButtonContext();
+    const startValue: string = buttonData[props.dataKey] ?? "";
+    const [value, setValue] = useState(startValue);
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement> | string) => {
-        handleInput(props.dataKey, typeof e === "string" ? e : e.target.value);
-        setValue(typeof e === "string" ? e : e.target.value);
+        let newValue = typeof e === "string" ? e : e.target.value;
+        if (props.valueSuffix && !newValue.endsWith(props.valueSuffix)) {
+            newValue += props.valueSuffix;
+        }
+        handleInput(props.dataKey, newValue);
+        setValue(newValue);
     }
 
     return (

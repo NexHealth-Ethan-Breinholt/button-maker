@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
+import { DEFAULT_BUTTON_DATA } from "../constants";
 
 interface ButtonContextType {
     buttonData: Record<string, any>,
@@ -15,7 +16,7 @@ interface ButtonContextProviderProps {
 }
 
 export default function ButtonContextProvider({ children }: ButtonContextProviderProps) {
-    const [buttonData, setButtonData] = useState({});
+    const [buttonData, setButtonData] = useState<Record<string, any>>(DEFAULT_BUTTON_DATA);
 
     const handleInput = (key: string, value: any) => {
         setButtonData({

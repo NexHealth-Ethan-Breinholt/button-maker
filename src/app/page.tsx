@@ -19,14 +19,19 @@ export default function Home() {
       <div className="flex gap-16 items-center">
         <div className="bg-white rounded-lg p-4 w-[32rem] h-64 shadow-lg grid place-items-center relative">
           <p className="absolute left-2 -top-6 italic text-neutral-600">Preview</p>
-          {/* <button className="px-8 py-4 bg-teal-400 rounded-full font-bold cursor-pointer">Book Online</button> */}
           <ButtonVisual />
         </div>
-        <div className="bg-zinc-700 rounded-lg p-4 w-80 h-[32rem] shadow-lg relative overflow-y-auto flex flex-col gap-2">
-          <TextInput label="New Text Input Test" dataKey="new-text-test" />
-          <ToggleInput label="Use Background Color" dataKey="use-bg-color" defaultValue={true} />
-          <ColorInput label="Background Color" dataKey="bg-color" defaultValue="#00d5be" conditionalKey="use-bg-color" conditionalKeyValue={true} />
-          <div className="bg-zinc-700 h-16 bottom-0 left-0 right-0 absolute shadow-[0_0_20px_0_oklch(30%_0.006_295.885)] flex justify-between px-4 items-center">
+        <div className="relative">
+          <div className="bg-zinc-700 rounded-t-lg p-4 w-80 h-96 shadow-lg relative overflow-y-auto flex flex-col gap-3 pb-64">
+            <TextInput label="Label" dataKey="label" />
+            <ColorInput label="Text Color" dataKey="color" />
+            <ToggleInput label="Use Background Color" dataKey="use-bg-color" />
+            <ColorInput label="Background Color" dataKey="bg-color" conditionalKey="use-bg-color" conditionalKeyValue={true} />
+            <ToggleInput label="Use Border" dataKey="use-border" />
+            <ColorInput label="Border Color" dataKey="border-color" conditionalKey="use-border" conditionalKeyValue={true} />
+            <TextInput label="Border Thickness (px)" dataKey="border-thickness" conditionalKey="use-border" conditionalKeyValue={true} valueSuffix="px" pattern={/^[0-9]{0,2}$/} />
+          </div>
+          <div className="bg-zinc-700 rounded-b-lg h-16 shadow-[0_0_20px_0_oklch(30%_0.006_295.885)] flex justify-between px-4 items-center">
             <button className="px-4 py-1 h-fit bg-teal-400 text-white rounded-full">Copy HTML</button>
           </div>
         </div>
