@@ -35,7 +35,7 @@ export default function Home() {
             <ColorInput label="Border Color" dataKey="border-color" conditionalKey="use-border" conditionalKeyValue={true} />
             <TextInput label="Border Thickness (px)" dataKey="border-thickness" conditionalKey="use-border" conditionalKeyValue={true} valueSuffix="px" pattern={/^[0-9]{0,2}$/} />
           </div>
-          <div className="bg-zinc-700 rounded-b-lg h-16 shadow-[0_0_20px_0_oklch(30%_0.006_295.885)] flex justify-between px-4 items-center">
+          <div className="bg-zinc-500 rounded-b-lg h-16 flex justify-between px-4 items-center">
             <button className="px-4 py-1 h-fit bg-teal-400 text-white rounded-full">Copy HTML</button>
           </div>
         </div>
