@@ -22,9 +22,13 @@ export default function Home() {
           <ButtonVisual />
         </div>
         <div className="relative">
-          <div className="bg-zinc-700 rounded-t-lg p-4 w-80 h-96 shadow-lg relative overflow-y-auto flex flex-col gap-3 pb-64">
+          <div className="bg-zinc-700 rounded-t-lg p-4 w-80 h-96 shadow-lg relative overflow-y-auto flex flex-col gap-4 pb-64">
             <TextInput label="Label" dataKey="label" />
             <ColorInput label="Text Color" dataKey="color" />
+            <div className="flex gap-6">
+              <ToggleInput label="Bold" dataKey="bold" />
+              <ToggleInput label="Italic" dataKey="italic" />
+            </div>
             <ToggleInput label="Use Background Color" dataKey="use-bg-color" />
             <ColorInput label="Background Color" dataKey="bg-color" conditionalKey="use-bg-color" conditionalKeyValue={true} />
             <ToggleInput label="Use Border" dataKey="use-border" />

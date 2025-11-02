@@ -1,6 +1,7 @@
 export const DEFAULT_BUTTON_DATA = {
     "label": "Book Online",
     "color": "#000000",
+    "bold": true,
     "use-bg-color": true,
     "bg-color": "#00d5be",
     "use-border": false,
