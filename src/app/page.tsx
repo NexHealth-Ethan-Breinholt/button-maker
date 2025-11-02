@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import ColorPicker from "./components/color-picker";
-import Textfield from "./components/textfield";
 import { ColorInput, TextInput, ToggleInput } from "./components/inputs";
 import ButtonVisual from "./components/button-visual";
 
@@ -28,14 +26,6 @@ export default function Home() {
           <TextInput label="New Text Input Test" dataKey="new-text-test" />
           <ToggleInput label="Use Background Color" dataKey="use-bg-color" defaultValue={true} />
           <ColorInput label="Background Color" dataKey="bg-color" defaultValue="#00d5be" conditionalKey="use-bg-color" conditionalKeyValue={true} />
-
-          <Textfield label="Label" dataKey="label" onChange={handleInput} buttonData={buttonData} />
-          {/* <Toggle label="Show BG" defaultValue={true} dataKey="bg" onChange={handleInput} buttonData={buttonData}  /> */}
-          <ColorPicker label="BG Color" value="#00d5be" dataKey="bg-color" onChange={handleInput} buttonData={buttonData} conditionalKey="bg" conditionalKeyValue={true} />
-          <ColorPicker label="Text Color" dataKey="text-color" onChange={handleInput} buttonData={buttonData} />
-          {/* <Toggle label="Use Border" dataKey="border" onChange={handleInput} buttonData={buttonData}  /> */}
-          <Textfield label="Thickness" dataKey="border-thickness" onChange={handleInput} buttonData={buttonData} conditionalKey="border" conditionalKeyValue={true} />
-          <ColorPicker label="Border Color" value="#00d5be" dataKey="border-color" onChange={handleInput} buttonData={buttonData} conditionalKey="border" conditionalKeyValue={true} />
           <div className="bg-zinc-700 h-16 bottom-0 left-0 right-0 absolute shadow-[0_0_20px_0_oklch(30%_0.006_295.885)] flex justify-between px-4 items-center">
             <button className="px-4 py-1 h-fit bg-teal-400 text-white rounded-full">Copy HTML</button>
           </div>
