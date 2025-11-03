@@ -17,6 +17,9 @@ interface InputFieldProps extends BaseProps {
     dataKey: string,
     valueSuffix?: string,
     pattern?: RegExp,
+    min?: number,
+    max?: number,
+    valueAtMax?: number,
 }
 
 const InputWrapper = ({
@@ -49,7 +52,7 @@ const InputWrapper = ({
 
     return (
         <div className="flex flex-col gap-1">
-            <label className="text-sm text-neutral-400">{label}</label>
+            <label className="text-sm text-zinc-400">{label}</label>
             {children}
         </div>
     )
@@ -81,7 +84,7 @@ export const TextInput = (props: InputFieldProps) => {
 
     return (
         <InputWrapper label={props.label} conditionalKey={props.conditionalKey} conditionalKeyValue={props.conditionalKeyValue} hiddenByDefault={props.hiddenByDefault}>
-            <input type="text" onChange={handleOnChange} value={value} className="text-white w-full bg-neutral-800 rounded-lg px-2 py-1 text-left focus-within:outline-4 focus-within:outline-teal-400/50" />
+            <input type="text" onChange={handleOnChange} value={value} className="text-white w-full bg-zinc-800 rounded-lg px-2 py-1 text-left focus-within:outline-4 focus-within:outline-teal-400/50" />
         </InputWrapper>
     )
 }
@@ -121,7 +124,48 @@ export const ColorInput = (props: InputFieldProps) => {
 
     return (
         <InputWrapper label={props.label} conditionalKey={props.conditionalKey} conditionalKeyValue={props.conditionalKeyValue} hiddenByDefault={props.hiddenByDefault}>
-            <input type="color" onChange={handleOnChange} value={value} className="w-full bg-neutral-800 rounded-lg px-2 py-1 text-left focus-within:outline-4 focus-within:outline-teal-400/50" />
+            <input type="color" onChange={handleOnChange} value={value} className="w-full bg-zinc-800 rounded-lg px-2 py-1 text-left focus-within:outline-4 focus-within:outline-teal-400/50" />
+        </InputWrapper>
+    )
+}
+
+export const RangeInput = (props: InputFieldProps) => {
+    const { buttonData, handleInput } = useButtonContext();
+    let startValue: string = buttonData[props.dataKey] ?? "";
+    if (startValue && props.valueSuffix && startValue.endsWith(props.valueSuffix)) {
+        startValue = startValue.slice(0, startValue.length - props.valueSuffix?.length);
+    }
+    const [value, setValue] = useState(startValue);
+
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement> | string) => {
+        let newValue = typeof e === "string" ? e : e.target.value;
+
+        if (props.pattern && !props.pattern.test(newValue)) {
+            return;
+        }
+
+        if (props.valueAtMax && props.max && newValue === props.max.toString()) {
+            newValue = props.valueAtMax.toString();
+        }
+
+        setValue(newValue);
+
+        if (props.valueSuffix && !newValue.endsWith(props.valueSuffix)) {
+            newValue += props.valueSuffix;
+        }
+
+        handleInput(props.dataKey, newValue);
+    }
+
+    const min = props.min ?? 0;
+    const max = props.max ?? 100;
+    
+    return (
+        <InputWrapper label={props.label} conditionalKey={props.conditionalKey} conditionalKeyValue={props.conditionalKeyValue} hiddenByDefault={props.hiddenByDefault}>
+            <div className="p-2 flex justify-between">
+                <input type="range" min={min} max={max} onChange={handleOnChange} value={value} className="text-white w-full bg-zinc-800 rounded-lg py-1 text-left focus-within:outline-4 focus-within:outline-teal-400/50" />
+                <p className="w-16 text-right text-white">{value}{props.valueSuffix}</p>
+            </div>
         </InputWrapper>
     )
 }

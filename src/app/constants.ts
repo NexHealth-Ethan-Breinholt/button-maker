@@ -7,4 +7,7 @@ export const DEFAULT_BUTTON_DATA = {
     "use-border": false,
     "border-color": "#000000",
     "border-thickness": "2px",
+    "x-padding": "32px",
+    "y-padding": "16px",
+    "border-radius": "9999px",
 }

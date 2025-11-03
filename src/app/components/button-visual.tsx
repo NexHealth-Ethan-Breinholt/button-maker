@@ -10,6 +10,9 @@ export default function ButtonVisual() {
     const fontWeight = buttonData["bold"] ? "bold" : "normal";
     const fontStyle = buttonData["italic"] ? "italic" : "normal";
     const backgroundColor = buttonData["use-bg-color"] ? buttonData["bg-color"] ?? "transparent" : "transparent";
+    const paddingInline = buttonData["x-padding"] ?? 0;
+    const paddingBlock = buttonData["y-padding"] ?? 0;
+    const borderRadius = buttonData["border-radius"] ?? 0;
     const borderValues = [
         "solid",
         buttonData["border-color"],
@@ -18,12 +21,15 @@ export default function ButtonVisual() {
     const border = buttonData["use-border"] ? borderValues.join(" ") : "none";
 
     return (
-        <button className="px-8 py-4 rounded-full font-bold cursor-pointer" style={{
+        <button className="font-bold cursor-pointer" style={{
             color,
             fontWeight,
             fontStyle,
             backgroundColor,
             border,
+            paddingInline,
+            paddingBlock,
+            borderRadius,
         }}>{label}</button>
     )
 }

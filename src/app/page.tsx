@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ColorInput, TextInput, ToggleInput } from "./components/inputs";
+import { ColorInput, RangeInput, TextInput, ToggleInput } from "./components/inputs";
 import ButtonVisual from "./components/button-visual";
+import Section from "./components/section";
 
 export default function Home() {
   const [buttonData, setButtonData] = useState({});
@@ -22,18 +23,29 @@ export default function Home() {
           <ButtonVisual />
         </div>
         <div className="relative">
-          <div className="bg-zinc-700 rounded-t-lg p-4 w-80 h-96 shadow-lg relative overflow-y-auto flex flex-col gap-4 pb-64">
-            <TextInput label="Label" dataKey="label" />
-            <ColorInput label="Text Color" dataKey="color" />
-            <div className="flex gap-6">
-              <ToggleInput label="Bold" dataKey="bold" />
-              <ToggleInput label="Italic" dataKey="italic" />
-            </div>
-            <ToggleInput label="Use Background Color" dataKey="use-bg-color" />
-            <ColorInput label="Background Color" dataKey="bg-color" conditionalKey="use-bg-color" conditionalKeyValue={true} />
-            <ToggleInput label="Use Border" dataKey="use-border" />
-            <ColorInput label="Border Color" dataKey="border-color" conditionalKey="use-border" conditionalKeyValue={true} />
-            <TextInput label="Border Thickness (px)" dataKey="border-thickness" conditionalKey="use-border" conditionalKeyValue={true} valueSuffix="px" pattern={/^[0-9]{0,2}$/} />
+          <div className="bg-zinc-700 rounded-t-lg p-2 w-80 h-96 shadow-lg relative overflow-y-auto flex flex-col gap-4 pb-64">
+            <Section>
+              <TextInput label="Label" dataKey="label" />
+              <ColorInput label="Text Color" dataKey="color" />
+              <div className="flex gap-6">
+                <ToggleInput label="Bold" dataKey="bold" />
+                <ToggleInput label="Italic" dataKey="italic" />
+              </div>
+            </Section>
+            <Section>
+              <ToggleInput label="Use Background Color" dataKey="use-bg-color" />
+              <ColorInput label="Background Color" dataKey="bg-color" conditionalKey="use-bg-color" conditionalKeyValue={true} />
+            </Section>
+            <Section>
+              <RangeInput label="X Padding" dataKey="x-padding" valueSuffix="px" />
+              <RangeInput label="Y Padding" dataKey="y-padding" valueSuffix="px" />
+              <RangeInput label="Border Radius" dataKey="border-radius" valueSuffix="px" min={0} max={100} valueAtMax={9999} />
+            </Section>
+            <Section>
+              <ToggleInput label="Use Border" dataKey="use-border" />
+              <ColorInput label="Border Color" dataKey="border-color" conditionalKey="use-border" conditionalKeyValue={true} />
+              <TextInput label="Border Thickness (px)" dataKey="border-thickness" conditionalKey="use-border" conditionalKeyValue={true} valueSuffix="px" pattern={/^[0-9]{0,2}$/} />
+            </Section>
           </div>
           <div className="bg-zinc-500 rounded-b-lg h-16 flex justify-between px-4 items-center">
             <button className="px-4 py-1 h-fit bg-teal-400 text-white rounded-full">Copy HTML</button>
