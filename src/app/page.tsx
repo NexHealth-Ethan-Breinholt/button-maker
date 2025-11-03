@@ -23,7 +23,7 @@ export default function Home() {
           <ButtonVisual />
         </div>
         <div className="relative">
-          <div className="bg-zinc-700 rounded-t-lg p-2 w-80 h-96 shadow-lg relative overflow-y-auto flex flex-col gap-4 pb-64">
+          <div className="bg-zinc-700 rounded-t-lg p-2 w-80 h-[32rem] shadow-lg relative overflow-y-auto flex flex-col gap-4 pb-64">
             <Section>
               <TextInput label="Label" dataKey="label" />
               <ColorInput label="Text Color" dataKey="color" />
