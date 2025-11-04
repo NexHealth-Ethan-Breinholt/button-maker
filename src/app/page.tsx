@@ -16,14 +16,14 @@ export default function Home() {
   }
   
   return (
-    <main className="h-screen max-h-screen bg-neutral-800 grid place-items-center">
+    <main className="h-screen max-h-screen bg-neutral-800 grid place-items-center overflow-hidden">
       <div className="flex gap-16 items-center">
         <div className="bg-white rounded-lg p-4 w-[32rem] h-64 shadow-lg grid place-items-center relative">
           <p className="absolute left-2 -top-6 italic text-neutral-600">Preview</p>
           <ButtonVisual />
         </div>
         <div className="relative">
-          <div className="bg-zinc-700 rounded-t-lg p-2 w-80 h-[32rem] shadow-lg relative overflow-y-auto flex flex-col gap-4 pb-64">
+          <div className="bg-zinc-700 rounded-t-lg p-2 w-80 h-[clamp(8rem,80vh,32rem)] shadow-lg relative overflow-y-auto flex flex-col gap-4 pb-64">
             <Section>
               <TextInput label="Label" dataKey="label" />
               <ColorInput label="Text Color" dataKey="color" />
