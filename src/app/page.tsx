@@ -1,20 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ColorInput, RangeInput, TextInput, ToggleInput } from "./components/inputs";
 import ButtonVisual from "./components/button-visual";
 import Section from "./components/section";
+import { useButtonContext } from "./components/button-context";
 
 export default function Home() {
-  const [buttonData, setButtonData] = useState({});
+  const { buttonData } = useButtonContext();
+  const [buttonHTML, setButtonHTML] = useState("");
 
-  const handleInput = (key: string, value: any) => {
-    setButtonData({
-      ...buttonData,
-      [key]: value
-    })
+  const updateButtonHTML = () => {
+    const borderStyle = buttonData["use-border"] ? `solid ${buttonData["border-color"] ?? "transparent"} ${buttonData["border-thickness"] ?? "0"}` : "none";
+    const htmlValue = `<a href="${buttonData["url"] ?? ""}" style="display:inline-block; text-decoration:none; padding:${buttonData["y-padding"]} ${buttonData["x-padding"]}; color:${buttonData["color"] ?? "#000000"}; background-color:${buttonData["bg-color"] ?? "transparent"}; border-radius:${buttonData["border-radius"] ?? "0"}; border:${borderStyle};">${buttonData["bold"] === true ? "<strong>" : ""}${buttonData["italic"] === true ? '<em style="font-style:italic">' : ""}${buttonData["label"] ?? ""}${buttonData["italic"] === true ? "</em>" : ""}${buttonData["bold"] === true ? "</strong>" : ""}</a>`
+    setButtonHTML(htmlValue);
   }
-  
+
+  useEffect(() => {
+    updateButtonHTML();
+  }, [buttonData]);
+
   return (
     <main className="h-screen max-h-screen bg-neutral-800 grid place-items-center overflow-hidden">
       <div className="flex gap-16 items-center">
@@ -24,6 +29,9 @@ export default function Home() {
         </div>
         <div className="relative">
           <div className="bg-zinc-700 rounded-t-lg p-2 w-80 h-[clamp(8rem,80vh,32rem)] shadow-lg relative overflow-y-auto flex flex-col gap-4 pb-64">
+            <Section>
+              <TextInput label="URL" dataKey="url" />
+            </Section>
             <Section>
               <TextInput label="Label" dataKey="label" />
               <ColorInput label="Text Color" dataKey="color" />
@@ -48,7 +56,8 @@ export default function Home() {
             </Section>
           </div>
           <div className="bg-zinc-500 rounded-b-lg h-16 flex justify-between px-4 items-center">
-            <button className="px-4 py-1 h-fit bg-teal-400 text-white rounded-full">Copy HTML</button>
+            <button className="px-4 py-1 h-fit bg-teal-400 text-white rounded-full cursor-pointer">Copy HTML</button>
+            <input type="text" value={buttonHTML} onChange={e => setButtonHTML(e.target.value)} className="w-36 bg-zinc-700 p-2 rounded-lg inset-shadow text-white focus-within:outline-4 focus-within:outline-teal-400/50" />
           </div>
         </div>
       </div>

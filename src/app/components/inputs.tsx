@@ -42,7 +42,6 @@ const InputWrapper = ({
             else {
                 setHidden(isHidden);
             }
-            console.log(conditionalKey, conditionalKeyValue, buttonData[conditionalKey], isHidden)
         }
     }, [buttonData, conditionalKey, conditionalKeyValue, isHidden]);
 
