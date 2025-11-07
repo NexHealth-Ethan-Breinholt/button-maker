@@ -12,7 +12,8 @@ export default function Home() {
 
   const updateButtonHTML = () => {
     const borderStyle = buttonData["use-border"] ? `solid ${buttonData["border-color"] ?? "transparent"} ${buttonData["border-thickness"] ?? "0"}` : "none";
-    const htmlValue = `<a href="${buttonData["url"] ?? ""}" style="display:inline-block; text-decoration:none; padding:${buttonData["y-padding"]} ${buttonData["x-padding"]}; color:${buttonData["color"] ?? "#000000"}; background-color:${buttonData["bg-color"] ?? "transparent"}; border-radius:${buttonData["border-radius"] ?? "0"}; border:${borderStyle};">${buttonData["bold"] === true ? "<strong>" : ""}${buttonData["italic"] === true ? '<em style="font-style:italic">' : ""}${buttonData["label"] ?? ""}${buttonData["italic"] === true ? "</em>" : ""}${buttonData["bold"] === true ? "</strong>" : ""}</a>`
+    const fontSizeStyle = buttonData["use-font-size"] ? ` font-size:${buttonData["font-size"] ?? "16px"};` : "";
+    const htmlValue = `<a href="${buttonData["url"] ?? ""}" style="display:inline-block; text-decoration:none;${fontSizeStyle} padding:${buttonData["y-padding"]} ${buttonData["x-padding"]}; color:${buttonData["color"] ?? "#000000"}; background-color:${buttonData["bg-color"] ?? "transparent"}; border-radius:${buttonData["border-radius"] ?? "0"}; border:${borderStyle};">${buttonData["bold"] === true ? "<strong>" : ""}${buttonData["italic"] === true ? '<em style="font-style:italic">' : ""}${buttonData["label"] ?? ""}${buttonData["italic"] === true ? "</em>" : ""}${buttonData["bold"] === true ? "</strong>" : ""}</a>`
     setButtonHTML(htmlValue);
   }
 
@@ -39,6 +40,8 @@ export default function Home() {
                 <ToggleInput label="Bold" dataKey="bold" />
                 <ToggleInput label="Italic" dataKey="italic" />
               </div>
+              <ToggleInput label="Modify Font Size" dataKey="use-font-size" />
+              <RangeInput label="Font Size" dataKey="font-size" min={8} max={36} conditionalKey="use-font-size" conditionalKeyValue={true} valueSuffix="px" pattern={/^[0-9]{0,2}$/} />
             </Section>
             <Section>
               <ToggleInput label="Use Background Color" dataKey="use-bg-color" />

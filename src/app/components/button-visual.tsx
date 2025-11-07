@@ -9,6 +9,7 @@ export default function ButtonVisual() {
     const color = buttonData["color"] ?? "#000000";
     const fontWeight = buttonData["bold"] ? "bold" : "normal";
     const fontStyle = buttonData["italic"] ? "italic" : "normal";
+    const fontSize = buttonData["use-font-size"] ? buttonData["font-size"] ?? "16px" : "";
     const backgroundColor = buttonData["use-bg-color"] ? buttonData["bg-color"] ?? "transparent" : "transparent";
     const paddingInline = buttonData["x-padding"] ?? 0;
     const paddingBlock = buttonData["y-padding"] ?? 0;
@@ -25,6 +26,7 @@ export default function ButtonVisual() {
             color,
             fontWeight,
             fontStyle,
+            fontSize,
             backgroundColor,
             border,
             paddingInline,
