@@ -142,6 +142,9 @@ export const RangeInput = (props: InputFieldProps) => {
         if (props.pattern && !props.pattern.test(newValue)) {
             return;
         }
+        else if (!props.pattern && !/^[0-9]{0,4}$/.test(newValue)) {
+            return;
+        }
 
         if (props.valueAtMax && props.max && newValue === props.max.toString()) {
             newValue = props.valueAtMax.toString();
@@ -161,9 +164,12 @@ export const RangeInput = (props: InputFieldProps) => {
     
     return (
         <InputWrapper label={props.label} conditionalKey={props.conditionalKey} conditionalKeyValue={props.conditionalKeyValue} hiddenByDefault={props.hiddenByDefault}>
-            <div className="p-2 flex justify-between">
+            <div className="p-2 flex justify-between gap-2">
                 <input type="range" min={min} max={max} onChange={handleOnChange} value={value} className="text-white w-full bg-zinc-800 accent-teal-400 rounded-lg py-1 text-left focus-within:outline-4 focus-within:outline-teal-400/50" />
-                <p className="w-20 text-right text-white">{value}{props.valueSuffix}</p>
+                <div className="flex w-16 gap-1 text-white">
+                    <input type="text" value={value} onChange={handleOnChange} className="w-12 text-right outline-none bg-zinc-800 rounded-lg pr-[6px]" />
+                    <p>{props.valueSuffix}</p>
+                </div>
             </div>
         </InputWrapper>
     )
