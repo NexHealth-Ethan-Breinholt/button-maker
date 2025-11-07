@@ -52,7 +52,7 @@ export default function Home() {
             <Section>
               <ToggleInput label="Use Border" dataKey="use-border" />
               <ColorInput label="Border Color" dataKey="border-color" conditionalKey="use-border" conditionalKeyValue={true} />
-              <TextInput label="Border Thickness (px)" dataKey="border-thickness" conditionalKey="use-border" conditionalKeyValue={true} valueSuffix="px" pattern={/^[0-9]{0,2}$/} />
+              <RangeInput label="Border Thickness (px)" min={0} max={60} dataKey="border-thickness" conditionalKey="use-border" conditionalKeyValue={true} valueSuffix="px" pattern={/^[0-9]{0,2}$/} />
             </Section>
           </div>
           <div className="bg-zinc-500 rounded-b-lg h-16 flex justify-between px-4 items-center">
