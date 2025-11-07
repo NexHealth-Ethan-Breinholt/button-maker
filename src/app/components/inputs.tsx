@@ -162,7 +162,7 @@ export const RangeInput = (props: InputFieldProps) => {
     return (
         <InputWrapper label={props.label} conditionalKey={props.conditionalKey} conditionalKeyValue={props.conditionalKeyValue} hiddenByDefault={props.hiddenByDefault}>
             <div className="p-2 flex justify-between">
-                <input type="range" min={min} max={max} onChange={handleOnChange} value={value} className="text-white w-full bg-zinc-800 rounded-lg py-1 text-left focus-within:outline-4 focus-within:outline-teal-400/50" />
+                <input type="range" min={min} max={max} onChange={handleOnChange} value={value} className="text-white w-full bg-zinc-800 accent-teal-400 rounded-lg py-1 text-left focus-within:outline-4 focus-within:outline-teal-400/50" />
                 <p className="w-20 text-right text-white">{value}{props.valueSuffix}</p>
             </div>
         </InputWrapper>
